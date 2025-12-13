@@ -91,8 +91,8 @@ venv.bak/
 .env
 .env.local
 .env.*.local
-.secrets.toml  # ⚠️ CRITICAL - Never commit API keys!
-
+.secrets.toml 
+multi_domain_platform/.streamlit/secrets.toml
 # Python dotenv
 .env
 .env.local
