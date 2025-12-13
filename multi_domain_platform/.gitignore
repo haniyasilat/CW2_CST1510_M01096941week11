@@ -1,0 +1,229 @@
+# .gitignore for Multi-Domain Intelligence Platform
+
+# ========== PYTHON ==========
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# ========== DATABASE ==========
+# SQLite database files
+database/*.db
+database/*.db-journal
+database/*.db-shm
+database/*.db-wal
+*.db
+*.sqlite
+*.sqlite3
+
+# Database backups
+*.dump
+*.backup
+*.bak
+
+# ========== STREAMLIT ==========
+.streamlit/
+*.pyc
+__pycache__/
+
+# Streamlit cache
+.stCache/
+
+# ========== ENVIRONMENT ==========
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.secrets.toml  # ⚠️ CRITICAL - Never commit API keys!
+
+# Python dotenv
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ========== IDE ==========
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ========== LOGS ==========
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ========== TESTING ==========
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
+
+# Test results
+test-results/
+*.xml
+*.trx
+
+# ========== OUTPUT ==========
+# Output directories
+out/
+build/
+dist/
+
+# Profiling data
+.prof
+
+# ========== DOCUMENTATION ==========
+# Sphinx
+docs/_build/
+
+# MkDocs
+site/
+
+# ========== TEMPORARY FILES ==========
+# Temporary files
+*.tmp
+*.temp
+*~
+.temp/
+
+# ========== PROJECT SPECIFIC ==========
+# Your project specific ignores
+uploads/
+downloads/
+temp/
+tmp/
+cache/
+
+# API Keys and sensitive data
+*.key
+*.pem
+*.cert
+*.secret
+
+# Report outputs (if generated)
+reports/*.pdf
+reports/*.html
+reports/*.csv
+
+# Export files (if generated)
+exports/
+output/
+
+# Large data files (if any)
+*.csv
+*.xlsx
+*.parquet
+*.feather
+*.h5
+
+# ========== GIT ==========
+# Git related
+.git-rewrite/
+.gitattributes
+.gitkeep
+
+# ========== MISC ==========
+# Custom
+*.bak
+*.backup
+*.old
