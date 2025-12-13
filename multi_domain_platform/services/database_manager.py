@@ -33,18 +33,18 @@ class DatabaseManager:
         cur = self._connection.cursor() 
         cur.execute(sql, tuple(params))
         return cur.fetchall()
-    def get_incidents_data():
+    def get_incidents_data(self):
         conn = sqlite3.connect("intelligence_platform.db")
         df = pd.read_sql_query("SELECT * FROM cyber_incidents", conn)
         conn.close()
         return df
 
-def ensure_tables_exist(self):
-    """Create tables if they don't exist."""
-    self.connect()
+    def ensure_tables_exist(self):
+        """Create tables if they don't exist."""
+        self.connect()
     
     # Create cyber_incidents table
-    self._connection.execute("""
+        self._connection.execute("""
         CREATE TABLE IF NOT EXISTS cyber_incidents (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             incident_type TEXT,
@@ -54,4 +54,4 @@ def ensure_tables_exist(self):
         )
     """)
     
-    self._connection.commit()
+        self._connection.commit()

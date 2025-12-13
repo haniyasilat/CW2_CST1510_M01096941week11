@@ -18,7 +18,8 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
     st.session_state.username = ""
-
+if "user_role" not in st.session_state:
+    st.session_state.user_role = ""
 # Password strength checker
 def check_password_strength(password):
     if len(password) < 8:
@@ -37,7 +38,7 @@ def check_password_strength(password):
 if st.session_state.logged_in:
     st.balloons()
     st.success(f"### ✅ Welcome back, {st.session_state.username}!")
-    
+    st.info(f"**Role:** {st.session_state.user_role.title()}")
     st.markdown("---")
     
     # Quick dashboard access
@@ -90,11 +91,12 @@ with tab1:
         if not login_username or not login_password:
             st.error("Please enter both username and password")
         else:
-            user = auth.login_user(login_username, login_password)
-            if user:
+            user_data = auth.login_user_with_role(login_username, login_password)
+            if user_data:
                 st.session_state.logged_in = True
                 st.session_state.username = login_username
-                st.success("Login successful!")
+                st.session_state.user_role = user_data.get('role', 'user')
+                st.success(f"✅ Login successful! Role: {st.session_state.user_role}")
                 st.rerun()
             else:
                 st.error("Invalid credentials. Please try again.")
@@ -105,6 +107,11 @@ with tab2:
     new_username = st.text_input("Choose username", key="reg_user")
     new_password = st.text_input("Password", type="password", key="reg_pass")
     confirm_password = st.text_input("Confirm password", type="password", key="reg_confirm")
+    user_role = st.selectbox(
+        "Select your role",
+        ["analyst", "researcher", "technician", "admin"],
+        format_func=lambda x: x.title()
+    )
     
     # Password strength indicator
     if new_password:
