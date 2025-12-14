@@ -1,11 +1,10 @@
 import streamlit as st
-
+#page config and titale
 st.set_page_config(
     page_title="Intelligence Platform",
     page_icon="🏠",
     layout="wide"
 )
-
 st.title("🏠 Intelligence Platform Dashboard")
 st.markdown("### Unified Dashboard for Cybersecurity, Data Science & IT Operations")
 
@@ -15,9 +14,9 @@ Welcome to the **Intelligence Platform** – a unified dashboard that provides A
 across multiple domains. Navigate to different sections using the sidebar.
 """)
 
-# Domain cards
+#displays button that can redirect you to the dashboard of your choice 
 st.markdown("## 📊 Available Dashboards")
-
+#three columns for three domains
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -53,21 +52,21 @@ with col3:
     if st.button("Go to IT Operations", key="it"):
         st.switch_page("pages/4_💻_IT_Operations.py")
 
-# System status (optional)
+# System status 
 st.divider()
 st.markdown("## 📈 System Status")
-
+# Create four columns for system metrics
 status_col1, status_col2, status_col3, status_col4 = st.columns(4)
-
+# AI Assistant status
 with status_col1:
     st.metric("AI Assistant", "Online", "Ready")
-
+# Database connection status
 with status_col2:
     st.metric("Database", "Connected", "Active")
-
+# Last updated info
 with status_col3:
     st.metric("Last Updated", "Today", "-")
-
+# Total records info
 with status_col4:
     st.metric("Total Records", "1,250+", "+15 today")
 

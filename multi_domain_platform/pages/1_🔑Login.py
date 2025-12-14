@@ -2,25 +2,27 @@ import streamlit as st
 from services.auth_manager import AuthManager
 from services.database_manager import DatabaseManager
 import re
-
+#create streamlit page metadata and alyout
 st.set_page_config(
     page_title="Login/Register",
     page_icon="🔑",
-    layout="centered"
+    layout="wide"
 )
 
-# Initialize
+# create database connection
+#databasemanager manages SQLite operations
+#AuthManager ahndles login, registration and role 
 db = DatabaseManager("database/intelligence_platform.db")
 auth = AuthManager(db)
 
-# Session state
+#initialise session state variables
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
     st.session_state.username = ""
 if "user_role" not in st.session_state:
     st.session_state.user_role = ""
-# Password strength checker
+# Password strength checker, using regex
 def check_password_strength(password):
     if len(password) < 8:
         return "❌ Password must be at least 8 characters"
@@ -34,36 +36,22 @@ def check_password_strength(password):
         return "⚠️ Consider adding a special character for extra security"
     return "✅ Strong password"
 
-# Already logged in
+#when user is logged in
 if st.session_state.logged_in:
     st.balloons()
     st.success(f"### ✅ Welcome back, {st.session_state.username}!")
     st.info(f"**Role:** {st.session_state.user_role.title()}")
     st.markdown("---")
     
-    # Quick dashboard access
+    # Quick dashboard access, buttons that redirected to the selected dashboard
     st.markdown("#### 🚀 Quick Access")
-    cols = st.columns(4)
-    
-    with cols[0]:
-        if st.button("🏠 Home", use_container_width=True):
-            st.switch_page("home.py")
-    
-    with cols[1]:
-        if st.button("🛡️ Cybersecurity", use_container_width=True):
-            st.switch_page("pages/2_🛡️_Cybersecurity.py")
-    
-    with cols[2]:
-        if st.button("📊 Data Science", use_container_width=True):
-            st.switch_page("pages/3_📊_Data_Science.py")
-    
-    with cols[3]:
-        if st.button("💻 IT Ops", use_container_width=True):
-            st.switch_page("pages/4_💻_IT_Operations.py")
+
+    if st.button("🏠 Home", use_container_width=True):
+        st.switch_page("Home.py")
     
     st.markdown("---")
     
-    # Logout
+    # button for logout
     if st.button("🚪 Logout", type="secondary", use_container_width=True):
         del st.session_state.logged_in
         del st.session_state.username
@@ -71,10 +59,9 @@ if st.session_state.logged_in:
     
     st.stop()
 
-# Main login/register interface
-
+#create login page
 st.title("Login or create an account")
-
+#separte tabs for login and register
 tab1, tab2 = st.tabs(["🔐 Login", "📝 Register"])
 
 with tab1:
@@ -89,16 +76,18 @@ with tab1:
     
     if st.button("Login", type="primary", use_container_width=True):
         if not login_username or not login_password:
+            #Basic input validation to avoid empty submissions
             st.error("Please enter both username and password")
-        else:
+        else: #authenticate user credentials via AuthManager
             user_data = auth.login_user_with_role(login_username, login_password)
             if user_data:
                 st.session_state.logged_in = True
                 st.session_state.username = login_username
+                #store user role, deflauts to "user", if not defines
                 st.session_state.user_role = user_data.get('role', 'user')
                 st.success(f"✅ Login successful! Role: {st.session_state.user_role}")
                 st.rerun()
-            else:
+            else: #error message if authentication fails
                 st.error("Invalid credentials. Please try again.")
 
 with tab2:
@@ -107,6 +96,7 @@ with tab2:
     new_username = st.text_input("Choose username", key="reg_user")
     new_password = st.text_input("Password", type="password", key="reg_pass")
     confirm_password = st.text_input("Confirm password", type="password", key="reg_confirm")
+    #options for roles
     user_role = st.selectbox(
         "Select your role",
         ["analyst", "researcher", "technician", "admin"],
@@ -134,7 +124,7 @@ with tab2:
             st.error("Password does not meet strength requirements")
         else:
             try:
-                auth.register_user(new_username, new_password)
+                auth.register_user(new_username, new_password, user_role)
                 st.balloons()
                 st.success("🎉 Registration successful!")
                 st.info("Switch to the Login tab to access your account")
